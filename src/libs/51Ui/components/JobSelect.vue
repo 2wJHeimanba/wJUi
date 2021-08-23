@@ -161,6 +161,6 @@ export default {
     transition: all 0.2s linear;
 }
 .job_ipt_active{
-    border: 1px solid #409eff !important;
+    border: 1px solid rgba(250, 102, 2, 0.2) !important;
 }
 </style>

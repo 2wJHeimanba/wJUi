@@ -13,9 +13,11 @@
     <!-- <div id="timepicker">
       <TimePicker/>
     </div> -->
-    <div id="select">
+    <!-- <div id="select">
       <JobSelect :select_data="select_data" />
-    </div>
+    </div> -->
+    <!-- <JobRadio :radio_data="radio_data" :direction="false" /> -->
+    <JobInput />
     
   </div>
 </template>
@@ -92,7 +94,8 @@ export default {
           ]
         }
       ],
-      select_data:['黄金糕','双皮奶','龙须面','好吃的']
+      select_data:['黄金糕','双皮奶','龙须面','好吃的'],
+      radio_data:['张学友','刘德华','黎明','郭富城']
     }
   },
   components: {
@@ -109,6 +112,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  /* background: black; */
 }
 #nav{
   width: 180px;
