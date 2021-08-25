@@ -3,7 +3,7 @@
     <!-- <img alt="Vue logo" src="./assets/logo.png" @click="carousel_toggle=true"> -->
     <HelloWorld msg="Welcome to Your Vue.js App"/>
     <!-- <Carousel :data_list="images_list" v-show="carousel_toggle" :toggle.sync="carousel_toggle" /> -->
-    <!-- <DatePicker :date="time"/> -->
+    <DatePicker :date="time"/>
     <!-- <div id="nav">
       <NavMenu :nav="nav_content" :current_index="2" />
     </div> -->
@@ -16,8 +16,6 @@
     <!-- <div id="select">
       <JobSelect :select_data="select_data" />
     </div> -->
-    <!-- <JobRadio :radio_data="radio_data" :direction="false" /> -->
-    <JobInput />
     
   </div>
 </template>
@@ -94,8 +92,7 @@ export default {
           ]
         }
       ],
-      select_data:['黄金糕','双皮奶','龙须面','好吃的'],
-      radio_data:['张学友','刘德华','黎明','郭富城']
+      select_data:['黄金糕','双皮奶','龙须面','好吃的']
     }
   },
   components: {
@@ -112,7 +109,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-  /* background: black; */
 }
 #nav{
   width: 180px;
