@@ -3,7 +3,7 @@
     <!-- <img alt="Vue logo" src="./assets/logo.png" @click="carousel_toggle=true"> -->
     <HelloWorld msg="Welcome to Your Vue.js App"/>
     <!-- <Carousel :data_list="images_list" v-show="carousel_toggle" :toggle.sync="carousel_toggle" /> -->
-    <!-- <DatePicker :date="time"/> -->
+    <DatePicker :date="time"/>
     <!-- <div id="nav">
       <NavMenu :nav="nav_content" :current_index="2" />
     </div> -->
@@ -128,7 +128,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-  /* background: black; */
 }
 #nav{
   width: 180px;

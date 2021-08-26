@@ -115,7 +115,6 @@ export default {
     display: flex;
     padding: 10px;
     padding-bottom: 10px;
-    /* animation: toggle 0.3s linear; */
     animation-name: toggle;
     animation-duration: 0.5s;
     animation-direction: alternate;
@@ -177,6 +176,6 @@ export default {
     transition: all 0.2s linear;
 }
 .job_ipt_active{
-    border: 1px solid rgba(250, 102, 2, 0.2) !important;
+    border: 1px solid #409eff !important;
 }
 </style>
