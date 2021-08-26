@@ -1,6 +1,6 @@
 <template>
     <div id="job_select" v-jobSelect>
-        <input type="text" placeholder="请选择" autocomplete="off" readonly id="job_select_ipt" :value="selected_content" :class="{job_ipt_active:select_content}">
+        <input type="text" placeholder="请选择" autocomplete="off" readonly id="job_select_ipt" v-model="selected_content" :class="{job_ipt_active:select_content}">
         <span class="job_select_icon">
             <svg :style="{transform:select_content?'rotate(-180deg)':''}" t="1629638480589" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2254" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15"><path d="M69.83338667 218.71502222c-51.44689778 0-84.35484445 68.70129778-44.93767112 108.12074667L467.7632 769.73624889c25.40885333 25.3952 63.18307555 25.3952 88.58055111 0L999.23057778 326.84828444c38.41706667-38.42844446 8.45824-108.12074667-44.29596445-108.12074666l-885.10236444-0.01251556z" p-id="2255" fill="#df7e2d"></path></svg>
         </span>
@@ -12,7 +12,7 @@
                     @click="getSelectContent(item)" 
                     :class="{selectedActive:item===selected_content}" 
                 >
-                    {{item}}
+                    {{item.title}}
                 </li>
             </ul>
         </div>
@@ -26,13 +26,28 @@ export default {
         select_data:{
             type:Array,
             require:true
+        },
+        value:{
+            type:String,
+            default:''
+        },
+        select_key:{
+            type:String,
+            default:'value'
+        },
+        output_key:{
+            type:String,
+            default:'value'
         }
     },
     data(){
         return{
             select_content:false,
-            selected_content:''
+            selected_content:this.value
         }
+    },
+    mounted(){
+        console.log(this.selected_content)
     },
     directives:{
         jobSelect:{
@@ -58,7 +73,8 @@ export default {
     methods:{
         getSelectContent(e){
             this.selected_content=e;
-            this.select_content=false
+            this.select_content=false;
+            this.$emit('input',this.selected_content)
         }
     }
 }
