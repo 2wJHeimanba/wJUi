@@ -136,6 +136,8 @@ export default {
   margin-top: 60px;
   border: 2px solid red;
   position: relative;
+  height: 100vh;
+  width: 100vw;
 }
 #nav{
   width: 180px;

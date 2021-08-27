@@ -4,13 +4,9 @@ import loading from "./loading.vue"
 
 const loadingDirective={
     inserted(el,binding){
-        // console.log(el)
-        // console.log(binding)
         const loadingBox=Vue.extend(loading)
         const loadingComp=new loadingBox().$mount()
         el.instance=loadingComp
-        // console.log(loadingComp.$el)
-        // console.log(binding.value)
         if(binding.value){
             append(el)
         }
