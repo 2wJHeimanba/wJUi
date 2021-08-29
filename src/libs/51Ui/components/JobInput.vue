@@ -33,7 +33,7 @@ export default {
     },
     data(){
         return{
-            job_input_content:"",
+            job_input_content:this.value,
             btn_hover_style:'#858585'
         }
     },
