@@ -44,13 +44,16 @@ export default {
             isShow:false
         }
     },
+    mounted(){
+        this.show()
+    },
     methods:{
         show(){
-            this.isShow=true
+            // this.isShow=true
             setTimeout(this.hide,this.druation)
         },
         hide(){
-            this.isShow=false;
+            // this.isShow=false;
             this.remove()
         },
     }

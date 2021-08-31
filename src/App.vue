@@ -134,17 +134,17 @@ export default {
   methods:{
     addItem(){
       // this.select_data.push({id:Math.floor(Math.random()*10000),title:''})
-      const notice=this.$create({
+      this.$create({
         title:"输入的内容出错了，请根据提示填写我呢见驾附近的",
-        druation:3000,
-        // type:'warning'
+        druation:2000,
+        type:'error'
       });
-      notice.show()
+      // notice.show()
     },
     getResult(){
       this.$alert({
           title:"提示",
-          callback:function(){
+          success:function(){
             console.log("点击了确定")
           },
           cancel:function(){

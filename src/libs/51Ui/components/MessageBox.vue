@@ -25,30 +25,36 @@ export default {
             type:String,
             default:'这里是内容占位符'
         },
-        callback:Function,
-        cancel:Function
+        success:{
+            type:Function,
+            default:()=>{}
+        },
+        cancel:{
+            type:Function,
+            default:function(){}
+        }
     },
 
     methods:{
         close(){
             this.remove()
-            const notice=this.$create({
+            this.$create({
                 title:"输入的内容出错了，请根据提示填写我呢见驾附近的",
                 druation:3000,
                 type:'warning'
             });
-            notice.show()
+            // notice.show()
             this.cancel()
         },
         confire(){
             this.remove()
-            const notice=this.$create({
+            this.$create({
                 title:"你选择了确定",
                 druation:2500,
                 type:'success'
             });
-            notice.show();
-            this.callback()
+            // notice.show();
+            this.success()
         }
     }
 
