@@ -18,9 +18,9 @@
     </div> -->
     <!-- <JobRadio :radio_data="radio_data" :direction="false" /> -->
 
-    <JobInput v-model="input_test" :clearable="true" />
+    <!-- <JobInput v-model="input_test" :clearable="true" /> -->
 
-    <ul :class="['job_ul',{active:toggle}]">
+    <!-- <ul :class="['job_ul',{active:toggle}]">
       <li v-for="item in select_data" :key="item.id">
         <input type="text" v-model="item.title">
       </li>
@@ -28,7 +28,9 @@
 
     <button @click="addItem">+1</button>
     <button @click="getResult">获取值</button>
-    <p>{{select_data}}</p>
+    <p>{{select_data}}</p> -->
+    <!-- <JobRadio size="medium" v-model="jobRadio">手机</JobRadio> -->
+    <JobTransfer/>
 
   </div>
 </template>
@@ -43,6 +45,7 @@ export default {
   name: 'App',
   data(){
     return{
+      jobRadio:true,
       toggle:false,
       test_select:'双皮奶',
       input_test:'文件夹',
@@ -129,6 +132,9 @@ export default {
     },
     test_select(newVal,oldVal){
       console.log(newVal)
+    },
+    jobRadio(newVal,oldVal){
+      console.warn(newVal)
     }
   },
   methods:{

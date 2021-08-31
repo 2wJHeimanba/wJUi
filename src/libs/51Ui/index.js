@@ -7,12 +7,23 @@ import JobTopMenu from "./components/JobTopMenu"
 import TimePicker from "./components/TimePicker"
 import JobSelect from "./components/JobSelect"
 import JobInput from "./components/JobInput"
+import JobRadio from "./components/JobRadio"
+import JobTransfer from "./components/JobTransfer"
 
 
 const JobUi={};
 
 const componentPool=[
-    Start,Carousel,DatePicker,NavMenu,JobTopMenu,TimePicker,JobSelect,JobInput
+    Start,
+    Carousel,
+    DatePicker,
+    NavMenu,
+    JobTopMenu,
+    TimePicker,
+    JobSelect,
+    JobInput,
+    JobRadio,
+    JobTransfer
 ];
 
 JobUi.install=function(Vue){
