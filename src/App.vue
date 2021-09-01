@@ -32,6 +32,8 @@
     <JobRadio size="medium" v-model="jobRadio">手机</JobRadio>
     <JobTransfer :Jdata="select_data" :transferToggle.sync="jobRadio"/>
 
+    <div class="tooltip" @click="testTooltip(this)" ref="tooltip">该何去何从</div>
+
   </div>
 </template>
 
@@ -162,6 +164,10 @@ export default {
         // this.toggle=true
         
       // })
+    },
+    testTooltip(){
+      console.log(this.$refs.tooltip)
+      this.$Tooltip('hello world',true,this.$refs.tooltip)
     }
   }
 }
@@ -211,6 +217,12 @@ export default {
 .active{
   animation: test_active 2s linear;
 }
+
+.tooltip{
+  position: relative;
+  border: 1px solid red;
+}
+
 @keyframes test_active {
   0%{
     opacity: 1;
