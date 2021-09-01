@@ -29,8 +29,8 @@
     <button @click="addItem">+1</button>
     <button @click="getResult">获取值</button>
     <p>{{select_data}}</p> -->
-    <!-- <JobRadio size="medium" v-model="jobRadio">手机</JobRadio> -->
-    <JobTransfer/>
+    <JobRadio size="medium" v-model="jobRadio">手机</JobRadio>
+    <JobTransfer :Jdata="select_data" :transferToggle.sync="jobRadio"/>
 
   </div>
 </template>
@@ -45,7 +45,7 @@ export default {
   name: 'App',
   data(){
     return{
-      jobRadio:true,
+      jobRadio:false,
       toggle:false,
       test_select:'双皮奶',
       input_test:'文件夹',
@@ -115,10 +115,10 @@ export default {
       ],
       // select_data:['黄金糕','双皮奶','龙须面','好吃的'],
       select_data:[
-        {id:123,title:'黄金糕'},
-        {id:456,title:'双皮奶'},
-        {id:789,title:'龙须面'},
-        {id:753,title:'好吃的'}
+        {id:123,label:'黄金糕'},
+        {id:456,label:'双皮奶'},
+        {id:789,label:'龙须面'},
+        {id:753,label:'好吃的'}
       ],
       radio_data:['张学友','刘德华','黎明','郭富城']
     }
