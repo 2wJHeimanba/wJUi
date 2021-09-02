@@ -29,10 +29,12 @@
     <button @click="addItem">+1</button>
     <button @click="getResult">获取值</button>
     <p>{{select_data}}</p> -->
-    <JobRadio size="medium" v-model="jobRadio">手机</JobRadio>
-    <JobTransfer :Jdata="select_data" :transferToggle.sync="jobRadio"/>
+    <!-- <JobRadio size="medium" v-model="jobRadio">手机</JobRadio> -->
+    <!-- <JobTransfer :Jdata="select_data" :transferToggle.sync="jobRadio"/> -->
 
-    <div class="tooltip" @click="testTooltip(this)" ref="tooltip">该何去何从</div>
+    <!-- <div class="tooltip" @click="testTooltip(this)" ref="tooltip">该何去何从</div> -->
+
+    <Pagination v-model="page" totalPages="8"/>
 
   </div>
 </template>
@@ -47,6 +49,7 @@ export default {
   name: 'App',
   data(){
     return{
+      page:2,
       jobRadio:false,
       toggle:false,
       test_select:'双皮奶',
