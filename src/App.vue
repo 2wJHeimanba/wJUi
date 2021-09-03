@@ -34,7 +34,7 @@
 
     <!-- <div class="tooltip" @click="testTooltip(this)" ref="tooltip">该何去何从</div> -->
 
-    <Pagination v-model="page" totalPages="8"/>
+    <Pagination v-model="page" totalPages="6"/>
 
   </div>
 </template>
