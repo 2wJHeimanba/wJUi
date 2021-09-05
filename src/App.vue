@@ -4,9 +4,9 @@
     <HelloWorld msg="Welcome to Your Vue.js App"/>
     <!-- <Carousel :data_list="images_list" v-show="carousel_toggle" :toggle.sync="carousel_toggle" /> -->
     <!-- <DatePicker :date="time"/> -->
-    <!-- <div id="nav">
-      <NavMenu :nav="nav_content" :current_index="2" />
-    </div> -->
+    <div id="nav">
+      <NavMenu :nav="nav_content" :current_index="0" />
+    </div>
     <!-- <div id="top"> -->
       <!-- <JobTopMenu /> -->
     <!-- </div> -->
@@ -76,6 +76,16 @@ export default {
               title:'工作列表',
               id:123123,
               path:'work_list'
+            },
+            {
+              title:'实习列表',
+              id:123,
+              path:'intern_list'
+            },
+            {
+              title:'学习列表',
+              id:1233,
+              path:'study_list'
             }
           ]
         },
