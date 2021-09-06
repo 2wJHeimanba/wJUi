@@ -1,10 +1,10 @@
 <template>
     <div id="job_nav">
         <ul>
-            <li v-for="(item,index) in nav" :key="item.id" @click="change_second(index)">
+            <li v-for="(item,index) in navContent" :key="item.id" @click="change_second(index)">
                 <div class="job_nav_item" @click="toPage(item)" :class="{active_right:nav_key===index}">                        
                     <span class="nav_fonts">
-                        <svg t="1629556514022" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2060" width="18" height="18" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M553.86217486 156.61769104a59.43740844 59.43740844 0 0 0-79.86800372 0L151.037323 463.27823652a29.79286193 29.79286193 0 0 0 39.89685059 44.25361633l5.13542175-4.87586976V822.7208252a59.58572388 59.58572388 0 0 0 59.58572388 59.65988159h173.39942156v-179.38780189a41.95472717 41.95472717 0 0 1 41.9732666-42.01034546h81.59231544a41.95472717 41.95472717 0 0 1 41.9732666 42.01034546v179.38780189h177.51502991a59.58572388 59.58572388 0 0 0 59.6042633-59.6598816V506.56780256c13.2371521 11.97647094 32.01759338 11.06803894 43.03001404-1.20506287a29.79286193 29.79286193 0 0 0-2.15057373-42.08450317L553.86217486 156.63623047Z" fill="#f2eada" p-id="2061"></path></svg>
+                        <span v-html="item.icon"></span>
                         <span>{{item.title}}</span>
                     </span>
                     <span class="active_icon" v-if="item.childrens">
@@ -41,7 +41,8 @@ export default {
     },
     data(){
         return{
-            nav_key:this.current_index
+            nav_key:this.current_index,
+            navContent:this.transformNav(this.nav)
         }
     },
     methods:{
@@ -57,6 +58,15 @@ export default {
         queryPath(val){
             if(window.location.href.includes(val.path)) return true;
             else return false;
+        },
+        transformNav(navArr){
+            return navArr.map(val=>{
+                Reflect.set(val,'id',Math.ceil(Math.random()*Math.pow(10,12)).toString(16));
+                if(Reflect.has(val,'childrens')){
+                    this.transformNav(val.childrens)
+                }
+                return val
+            });
         }
     }
 }
@@ -92,7 +102,15 @@ export default {
     flex: 1 1;
     
 }
-.nav_fonts>span{
+.nav_fonts>span:first-child{
+    /* border: 1px solid red; */
+    width: 22px;height: 22px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.nav_fonts>span:not(:first-child){
     margin-left: 8px;
 }
 .active_icon{
@@ -152,6 +170,7 @@ export default {
 }
 
 .active_right{
+    font-weight: bold;color: #fff;
     background: rgba(255,255,255,0.15);
 }
 .active_right .active_icon{
