@@ -7,35 +7,48 @@
     <div id="nav">
       <NavMenu :nav="nav_content" :current_index="0" />
     </div>
+    <button @click="openDialog=true">click me</button>
     <!-- <div id="top"> -->
       <!-- <JobTopMenu /> -->
     <!-- </div> -->
     <!-- <div id="timepicker">
       <TimePicker/>
     </div> -->
-    <!-- <div id="select">
-      <JobSelect :select_data="select_data" v-model="test_select" />
-    </div> -->
+    <div id="select">
+      <JobSelect :select_data="select_data" v-model="test_select" selectedColor="red" />
+    </div>
+
     <!-- <JobRadio :radio_data="radio_data" :direction="false" /> -->
 
-    <!-- <JobInput v-model="input_test" :clearable="true" /> -->
-
+    <!-- input输入框 -->
+    <!-- <div class="job_input1">
+      <JobInput v-model="input_test" :clearable="true" placeholder="请输入内容" width="400" label="姓名：" marginTop="50" marginBottom="50" />
+      <JobInput v-model="input_test" :clearable="true" placeholder="请输入内容" width="400" label="性别：" :check="true"/>
+      <JobInput v-model="input_test" :clearable="true" placeholder="请输入爱好" width="300" label="爱好：" :check="true" prompt="请输入爱好"/>
+    </div> -->
+    
     <!-- <ul :class="['job_ul',{active:toggle}]">
       <li v-for="item in select_data" :key="item.id">
         <input type="text" v-model="item.title">
       </li>
     </ul>
-
     <button @click="addItem">+1</button>
     <button @click="getResult">获取值</button>
     <p>{{select_data}}</p> -->
     <!-- <JobRadio size="medium" v-model="jobRadio">手机</JobRadio> -->
     <!-- <JobTransfer :Jdata="select_data" :transferToggle.sync="jobRadio"/> -->
-
     <!-- <div class="tooltip" @click="testTooltip(this)" ref="tooltip">该何去何从</div> -->
-
-    <Pagination v-model="page" totalPages="6"/>
-
+    <!-- <Pagination v-model="page" totalPages="6"/> -->
+    <JobDialog :dialog_toggle.sync="openDialog">
+      <template v-slot:title><span>人员列表</span></template>
+      <div class="test-dialog" @click="testfu">
+        <div style="width:200px;height:150px;border:1px solid blue;">文件夹</div>
+      </div>
+      <template v-slot:button>
+        <button class="cancel">取 消</button>
+        <button>确 定</button>
+      </template>
+    </JobDialog>
   </div>
 </template>
 
@@ -49,11 +62,12 @@ export default {
   name: 'App',
   data(){
     return{
+      openDialog:false,
       page:2,
       jobRadio:false,
       toggle:false,
       test_select:'双皮奶',
-      input_test:'文件夹',
+      input_test:'',
       images_list:[
         {id:'123',url:require('./assets/images/ui-000.jpg')},
         {id:'456',url:require('./assets/images/ui-001.jpg')},
@@ -102,10 +116,10 @@ export default {
       ],
       // select_data:['黄金糕','双皮奶','龙须面','好吃的'],
       select_data:[
-        {id:123,label:'黄金糕'},
-        {id:456,label:'双皮奶'},
-        {id:789,label:'龙须面'},
-        {id:753,label:'好吃的'}
+        {value:123,label:'黄金糕'},
+        {value:456,label:'双皮奶'},
+        {value:789,label:'龙须面'},
+        {value:753,label:'好吃的'}
       ],
       radio_data:['张学友','刘德华','黎明','郭富城']
     }
@@ -144,15 +158,13 @@ export default {
             console.log("点击了取消")
           }
       })
-      // this.select_data.forEach(value=>{
-        // console.log(value.title)
-        // this.toggle=true
-        
-      // })
     },
     testTooltip(){
       console.log(this.$refs.tooltip)
       this.$Tooltip('hello world',true,this.$refs.tooltip)
+    },
+    testfu(){
+      console.log("点击了内容去")
     }
   }
 }
@@ -206,6 +218,26 @@ export default {
 .tooltip{
   position: relative;
   border: 1px solid red;
+}
+
+.test-dialog{
+  width: 700px;
+  height: 520px;
+  /* border: 2px solid #ccc; */
+  margin: 10px;
+}
+.cancel{
+  background: red;
+}
+.job_input1{
+  width: 600px;
+  height: 500px;
+  border: 2px solid red;
+  border-radius: 5px;
+  margin-left: 250px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
 }
 
 @keyframes test_active {

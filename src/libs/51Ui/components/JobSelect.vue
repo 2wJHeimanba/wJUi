@@ -1,21 +1,25 @@
 <template>
-    <div id="job_select" v-jobSelect>
-        <input type="text" placeholder="请选择" autocomplete="off" readonly id="job_select_ipt" v-model="selected_content" :class="{job_ipt_active:select_content}">
+    <div class="job_select" v-jobSelect>
+        <input type="text" placeholder="请选择" autocomplete="off" readonly class="job_select_ipt" v-model="selected_content" :class="{job_ipt_active:select_content}">
         <span class="job_select_icon">
             <svg :style="{transform:select_content?'rotate(-180deg)':''}" t="1629638480589" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2254" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15"><path d="M69.83338667 218.71502222c-51.44689778 0-84.35484445 68.70129778-44.93767112 108.12074667L467.7632 769.73624889c25.40885333 25.3952 63.18307555 25.3952 88.58055111 0L999.23057778 326.84828444c38.41706667-38.42844446 8.45824-108.12074667-44.29596445-108.12074666l-885.10236444-0.01251556z" p-id="2255" fill="#df7e2d"></path></svg>
         </span>
-        <div id="job_select_content" v-if="select_content">
-            <ul>
-                <li 
-                    v-for="(item,index) in select_data" 
-                    :key="index" 
-                    @click="getSelectContent(item)" 
-                    :class="{selectedActive:item===selected_content}" 
-                >
-                    {{item.title}}
-                </li>
-            </ul>
-        </div>
+        <transition name="job-select" enter-active-class="select-enter" leave-active-class="select-leave">
+            <div class="job_select_content" v-show="select_content">
+                <ul>
+                    <li 
+                        v-for="(item,index) in select_data" :key="index" 
+                        @click="getSelectContent(item[select_key])" 
+                        :class="{selectedActive:item[select_key]===selected_content}" 
+                        :style="{
+                            color:item[select_key]===selected_content?selectedColor:'black'
+                        }"
+                    >
+                        {{item[select_key]}}
+                    </li>
+                </ul>
+            </div>
+        </transition>
     </div>
 </template>
 
@@ -27,23 +31,30 @@ export default {
             type:Array,
             require:true
         },
-        value:{
-            type:String,
-            default:''
-        },
+        value:String,
         select_key:{
             type:String,
-            default:'value'
+            default:'label'
         },
         output_key:{
             type:String,
             default:'value'
-        }
+        },
+        selectedColor:String
     },
     data(){
         return{
             select_content:false,
             selected_content:this.value
+        }
+    },
+    watch:{
+        value:{
+            handler(newVal,oldVal){
+                if(newVal.trim().length!==0){
+
+                }
+            }
         }
     },
     mounted(){
@@ -73,19 +84,22 @@ export default {
     methods:{
         getSelectContent(e){
             this.selected_content=e;
-            this.select_content=false;
-            this.$emit('input',this.selected_content)
+            this.$emit('input',this.selected_content);
+            setTimeout(()=>{this.select_content=false},4)
+        },
+        openSelectBox(){
+            this.select_content=true;
         }
     }
 }
 </script>
 
 <style>
-#job_select{
+.job_select{
     position: relative;
     display: inline-block;
 }
-#job_select_ipt{
+.job_select_ipt{
     -webkit-appearance: none;
     background-color: #fff;
     background-image: none;
@@ -104,14 +118,13 @@ export default {
     font-size: 14px;
     user-select: none;
 }
-#job_select_content{
+.job_select_content{
     width: 238px;
     border-radius: 4px;
     background-color: #fff;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15)) drop-shadow(0 0 1px rgba(0,0,0,0.15));
     position: absolute;
-    top: 125%;
-    left: 0px;
+    top: 125%;left: 0px;
     display: flex;
     padding: 10px;
     padding-bottom: 10px;
@@ -119,15 +132,16 @@ export default {
     animation-duration: 0.5s;
     animation-direction: alternate;
 }
-@keyframes toggle {
-    0%{
-        opacity: 0;
-    }
-    100%{
-        opacity: 1;
-    }
+.select-leave{
+    animation: boxLeave 0.3s linear;
 }
-#job_select_content::before{
+@keyframes toggle {
+    from{opacity: 0;top: 100%;}
+}
+@keyframes boxLeave {
+    to{opacity: 0;top: 100%;}
+}
+.job_select_content::before{
     content: "";
     display: inline-block;
     position: absolute;
@@ -137,11 +151,11 @@ export default {
     border-color: transparent transparent #fff transparent;
     width: 0;height: 0;
 }
-#job_select_content>ul{
+.job_select_content>ul{
     list-style: none;
     width: 100%;
 }
-#job_select_content>ul>li{
+.job_select_content>ul>li{
     height: 35px;
     line-height: 35px;
     border-radius: 10px;
@@ -151,10 +165,10 @@ export default {
     padding-left: 25px;
     font-size: 14px;
 }
-#job_select_content>ul>li:last-child{
+.job_select_content>ul>li:last-child{
     border: none;
 }
-#job_select_content>ul>li:hover{
+.job_select_content>ul>li:hover{
     background: rgba(0,0,0,0.05);
 }
 .selectedActive{

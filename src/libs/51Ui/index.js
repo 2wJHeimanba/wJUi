@@ -10,6 +10,7 @@ import JobInput from "./components/JobInput"
 import JobRadio from "./components/JobRadio"
 import JobTransfer from "./components/JobTransfer"
 import Pagination from "./components/Pagination"
+import JobDialog from "./components/JobDialog"
 
 
 const JobUi={};
@@ -25,7 +26,8 @@ const componentPool=[
     JobInput,
     JobRadio,
     JobTransfer,
-    Pagination
+    Pagination,
+    JobDialog
 ];
 
 JobUi.install=function(Vue){
