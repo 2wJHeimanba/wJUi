@@ -2,7 +2,7 @@
     <div class="job-carousel" @mouseover="stopShuffling" @mouseleave="startShuffling">
         <transition-group name="list" enter-active-class="carousel-image-enter" leave-active-class="carousel-image-leave">
             <div class="job-carousel-image" v-for="(item,index) in temporaryArr" :key="index" v-show="index===active_key">
-                <img :src="item.href">
+                <img :src="item.href" :title="item.title">
             </div>
         </transition-group>
         
@@ -16,8 +16,11 @@
                     }"
                 >
                     <div class="job-carousel-box-title" >
-                        <div>{{item.title}}</div>
-                        <div class="active-dot" ref="dotTransition" :style="{top:dot_distance+'px'}"></div>
+                        <div>
+                            <div>{{item.title}}</div>
+                            <div v-show="index===active_key" class="briefing">{{item.title}}</div>
+                        </div>
+                        <div class="active-dot" :style="{top:dot_distance+'px'}"></div>
                     </div>
                 </li>
             </ul>
@@ -33,7 +36,14 @@ export default {
             type:[String,Number],
             default:40
         },
-
+        hover:{
+            type:[String,Number],
+            default:2
+        },
+        duration:{
+            type:Number,
+            default:2500
+        }
     },
     data(){
         return {
@@ -51,32 +61,19 @@ export default {
             ],
             active_key:0,
             dot_distance:0,
+            timer_wen:null
         }
     },
     watch:{
         active_key(newVal,oldVal){
-            if(newVal>2){                
-                this.timer_wen=setInterval(function(){test(newVal,oldVal)},10)         
-            }else if(newVal===0){
-                this.$refs.boxScrollTop.scrollTop=0
+            this.countdown=200;
+            if(newVal>this.hover||newVal===0){       
+                this.timer_wen=setInterval(()=>{
+                    this.tools(newVal,oldVal)
+                },10)
             }
-
             this.dot_distance=newVal*Number(this.height);
-            let distance=(Math.abs(newVal-oldVal)*Number(this.height))/20;
-            let countdown=200;
-            let _this=this;
-
-            function test(nval,oval){
-                countdown=countdown-10;
-                if(nval>oval){
-                    _this.$refs.boxScrollTop.scrollTop=_this.$refs.boxScrollTop.scrollTop+Math.round(distance);
-                }else if(nval<oval){
-                    _this.$refs.boxScrollTop.scrollTop=_this.$refs.boxScrollTop.scrollTop-Math.round(distance);
-                }
-                if(countdown<=0){
-                    clearInterval(_this.timer_wen)
-                }
-            }
+            this.distance=(Math.abs(newVal-oldVal)*Number(this.height))/20;
         }
     },
     mounted(){
@@ -86,8 +83,6 @@ export default {
         mouseKeyOver(i){
             this.active_key=i;
         },
-
-
         shuffling(){
             this.timer=setInterval(()=>{
                 if(this.active_key<this.temporaryArr.length-1){
@@ -95,20 +90,33 @@ export default {
                 }else{
                     this.active_key=0
                 }
-            },2500)
+            },this.duration)
         },
-
-
         stopShuffling(){
             clearInterval(this.timer);
             clearInterval(this.timer_wen)
         },
         startShuffling(){
             this.shuffling()
+        },
+
+        tools(nval,oval){
+            if(this.countdown<=0){
+                clearInterval(this.timer_wen);
+                return;
+            }
+            this.countdown-=10;
+            if(nval>oval){
+                this.$refs.boxScrollTop.scrollTop+=Math.round(this.distance);
+            }else{
+                this.$refs.boxScrollTop.scrollTop-=Math.round(this.distance);
+            }
+            
         }
     },
     beforeDestroy(){
-        clearInterval(this.timer)
+        clearInterval(this.timer);
+        clearInterval(this.timer_wen)
     }
 }
 </script>
@@ -140,7 +148,6 @@ export default {
     from{opacity: 0;}
     to{opacity: 1;}
 }
-
 .job-carousel-title{
     position: absolute;
     right: 0;
@@ -161,7 +168,6 @@ export default {
     transition: all 0.2s ease-in-out;
     border-left: 2px solid #fff;
 }
-
 .job-carousel-title::-webkit-scrollbar {
     width: 0px;
 }
@@ -176,36 +182,39 @@ export default {
     box-shadow:inset 0 0 5px rgba(0, 0, 0, 0.2);
     background:#ededed;
 }
-
-
 .job-carousel-title>ul{
     list-style: none;
     position: relative;
     z-index: 1;
 }
 .job-carousel-title>ul>li>div{
-    /* padding: 5px 0; */
+    padding-left: 6px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     font-size: 15px;
     cursor: pointer;
 }
 .job-carousel-title>ul>li.active-item{
     height: 50px !important;
-    /* border: 1px solid #fff; */
 }
 .job-carousel-title>ul>li.active-item>div{
-    /* padding: 8px; */
     height: 50px;
-    /* border: 2px solid #fff; */
     font-size: 16px;
     background-image: linear-gradient(to bottom,rgb(255, 102, 0),rgb(250, 209, 28));
     background-clip: text;
     color: transparent;
     text-shadow: 0 0 2px rgba(255, 255, 255, 0.28);
+    font-weight: bold;
 }
 .job-carousel-box-title{
     width: 100%;height: 100%;
+}
+.job-carousel-box-title>div>div:last-child{
+    text-align: left;
+    margin-top: 3px;
+}
+.briefing{
+    font-size: 10px;
 }
 </style>

@@ -6,3 +6,7 @@ export const formatTime=t=>{
 	let day=date.getDate()
 	return {year,month,day}
 }
+
+export function buffer(){
+	
+}
