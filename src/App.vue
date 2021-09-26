@@ -1,23 +1,24 @@
 <template>
   <div id="app">
-    <job-carousel></job-carousel>
+    <!-- <job-carousel></job-carousel> -->
+    <wj-carousel></wj-carousel>
     <!-- <img alt="Vue logo" src="./assets/logo.png" @click="carousel_toggle=true"> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     <!-- <Carousel :data_list="images_list" v-show="carousel_toggle" :toggle.sync="carousel_toggle" /> -->
     <!-- <DatePicker :date="time"/> -->
-    <div id="nav">
+    <!-- <div id="nav">
       <NavMenu :nav="nav_content" :current_index="0" />
-    </div>
-    <button @click="openDialog=true">click me</button>
+    </div> -->
+    <!-- <button @click="openDialog=true">click me</button> -->
     <!-- <div id="top"> -->
       <!-- <JobTopMenu /> -->
     <!-- </div> -->
     <!-- <div id="timepicker">
       <TimePicker/>
     </div> -->
-    <div id="select">
+    <!-- <div id="select">
       <JobSelect :select_data="select_data" v-model="test_select" selectedColor="red" />
-    </div>
+    </div> -->
 
     <!-- <JobRadio :radio_data="radio_data" :direction="false" /> -->
 
@@ -40,7 +41,7 @@
     <!-- <JobTransfer :Jdata="select_data" :transferToggle.sync="jobRadio"/> -->
     <!-- <div class="tooltip" @click="testTooltip(this)" ref="tooltip">该何去何从</div> -->
     <!-- <Pagination v-model="page" totalPages="6"/> -->
-    <JobDialog :dialog_toggle.sync="openDialog">
+    <!-- <JobDialog :dialog_toggle.sync="openDialog">
       <template v-slot:title><span>人员列表</span></template>
       <div class="test-dialog" @click="testfu">
         <div style="width:200px;height:150px;border:1px solid blue;">文件夹</div>
@@ -49,7 +50,7 @@
         <button class="cancel">取 消</button>
         <button>确 定</button>
       </template>
-    </JobDialog>
+    </JobDialog> -->
   </div>
 </template>
 
@@ -178,10 +179,11 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  /* margin-top: 60px; */
   position: relative;
   height: 100vh;
   width: 100vw;
+  background: black;
 }
 #nav{
   width: 180px;

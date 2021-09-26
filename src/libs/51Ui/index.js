@@ -12,6 +12,7 @@ import JobTransfer from "./components/JobTransfer"
 import Pagination from "./components/Pagination"
 import JobDialog from "./components/JobDialog"
 import JobCarousel from "./components/JobCarousel"
+import wJCarousel from "./components/wjCarousel"
 
 
 const JobUi={};
@@ -29,7 +30,8 @@ const componentPool=[
     JobTransfer,
     Pagination,
     JobDialog,
-    JobCarousel
+    JobCarousel,
+    wJCarousel
 ];
 
 JobUi.install=function(Vue){
