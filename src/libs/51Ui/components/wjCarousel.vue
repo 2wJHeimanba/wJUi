@@ -17,7 +17,8 @@
                 :style="{height:item_height+'px'}" 
                 @mouseover="changeImage(index)"
               >
-                {{item.title}}
+                <span>{{item.title}}</span>
+                <span v-show="index===active_key">{{item.title}}</span>
               </li>
           </ul>
       </div>
@@ -30,15 +31,22 @@ export default {
     props:{
         height:{
             type:[Number,String],
-            default:400
+            default:420
         },
         item_height:{
             type:[Number,String],
-            default:80
+            default:60
         },
         dot_distance:{
             type:[Number,String],
-            default:2
+            default:(event)=>{
+                console.log(this)
+                return 3
+            }
+        },
+        duration:{
+            type:Number,
+            default:2500
         }
     },
     data(){
@@ -73,12 +81,13 @@ export default {
     methods:{
         moveActive(){
             this.timer=setInterval(()=>{
+                // 定时
                 if(this.active_key>=this.temporaryArr.length-1){
                     this.active_key=0;
                 }else{
                     this.active_key++
                 }
-
+                // 控制跳转
                 if(this.active_key>=this.temporaryArr.length-(this.height/this.item_height-this.dot_distance)){
                     this.dot_move=(this.temporaryArr.length-(this.height/this.item_height))*this.item_height
                 }else if(this.active_key<=this.dot_distance){
@@ -86,10 +95,13 @@ export default {
                 }else{
                     this.dot_move=(this.active_key-this.dot_distance)*this.item_height;
                 }
-            },2000)
+            },this.duration)
         },
         stopTimer(){
-            clearInterval(this.timer)
+            clearInterval(this.timer);
+            
+            this.$refs.titleBox.scrollTop=this.dot_move*this.item_height;
+            this.dot_move=0;
         },
         startTimer(){
             this.moveActive()
@@ -138,7 +150,6 @@ export default {
     right: 0;top: 0;bottom: 0;
     width: 210px;
     background: rgba(0,0,0,0.38);
-    /* overflow-y: auto; */
     overflow: hidden;
 }
 .carousel-move-box{
@@ -157,14 +168,30 @@ export default {
 }
 .carousel-title-item{
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    border-bottom: 1px solid #fff;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
     padding-left: 8px;
-    background: transparent;
+    background-image: linear-gradient(to right,rgb(252, 117, 7) 0,yellow 100%);
+    background-size: 0px 1px;
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    
+}
+.carousel-title-item>span:last-child{
+    font-size: 12px;
+    margin-top: 3px;
 }
 .current-title-item{
     color: orange;
+}
+.carousel-title-item.current-title-item{
+    animation: jindu 2.5s linear;
+}
+@keyframes jindu {
+    to{
+        background-size: 100% 1px;
+    }
 }
 .carousel-shuffling-title:hover>.carousel-title-box{
     top: none !important;
