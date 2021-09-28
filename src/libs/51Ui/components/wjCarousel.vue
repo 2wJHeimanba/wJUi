@@ -6,7 +6,7 @@
         </div>
       </transition-group>
       
-      <div class="carousel-shuffling-title" @mouseover="stopTimer" @mouseleave="startTimer">
+      <div class="carousel-shuffling-title" @mouseover="stopTimer" @mouseleave="startTimer" @mousewheel="upwardScroll">
           <ul class="carousel-title-box" :style="{top:`-${dot_move}px`}" ref="titleBox">
               <div class="carousel-move-box" :style="moveDot"></div>
               <li v-for="(item,index) in temporaryArr" :key="index" 
@@ -14,7 +14,10 @@
                     'carousel-title-item',
                     {'current-title-item':index===active_key}
                 ]" 
-                :style="{height:item_height+'px'}" 
+                :style="{
+                    height:item_height+'px',
+                    'animation-duration':index===active_key?`${duration/1000}s`:''
+                }" 
                 @mouseover="changeImage(index)"
               >
                 <span>{{item.title}}</span>
@@ -99,9 +102,6 @@ export default {
         },
         stopTimer(){
             clearInterval(this.timer);
-            
-            this.$refs.titleBox.scrollTop=this.dot_move*this.item_height;
-            this.dot_move=0;
         },
         startTimer(){
             this.moveActive()
@@ -109,6 +109,16 @@ export default {
         changeImage(index){
             clearInterval(this.timer)
             this.active_key=index
+        },
+        upwardScroll(e){
+            if(e.wheelDelta>0){
+                // 向上滚动
+                if(this.dot_move>0){
+                    this.dot_move-=this.item_height;
+                }else{
+                    this.dot_move=0;
+                }
+            }
         }
     },
     beforeDestroy(){
@@ -154,7 +164,7 @@ export default {
 }
 .carousel-move-box{
     height: 80px;
-    background: rgba(255,255,255,0.38);
+    background: rgba(0,0,0,0.38);
     position: absolute;
     width: 100%;
     transition: all 0.2s linear;
@@ -176,7 +186,8 @@ export default {
     background-size: 0px 1px;
     background-position: 0% 100%;
     background-repeat: no-repeat;
-    
+    position: relative;
+    z-index: 0;
 }
 .carousel-title-item>span:last-child{
     font-size: 12px;
@@ -184,9 +195,16 @@ export default {
 }
 .current-title-item{
     color: orange;
+    text-shadow: 0 0 1px rgba(255,255,255,0.6);
+}
+.current-title-item>span:nth-child(1){
+    font-size: 16px;
+    font-weight: bold;
 }
 .carousel-title-item.current-title-item{
-    animation: jindu 2.5s linear;
+    animation-name: jindu;
+    animation-timing-function: linear;
+    animation-duration: 2.5s;
 }
 @keyframes jindu {
     to{
