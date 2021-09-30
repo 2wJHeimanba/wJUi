@@ -2,6 +2,7 @@
   <div id="app">
     <!-- <job-carousel></job-carousel> -->
     <wj-carousel></wj-carousel>
+    <mb-carousel></mb-carousel>
     <!-- <img alt="Vue logo" src="./assets/logo.png" @click="carousel_toggle=true"> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     <!-- <Carousel :data_list="images_list" v-show="carousel_toggle" :toggle.sync="carousel_toggle" /> -->

@@ -13,7 +13,7 @@ import Pagination from "./components/Pagination"
 import JobDialog from "./components/JobDialog"
 import JobCarousel from "./components/JobCarousel"
 import wJCarousel from "./components/wjCarousel"
-
+import wjMbCarousel from "./components/wjMbCarousel"
 
 const JobUi={};
 
@@ -31,7 +31,8 @@ const componentPool=[
     Pagination,
     JobDialog,
     JobCarousel,
-    wJCarousel
+    wJCarousel,
+    wjMbCarousel
 ];
 
 JobUi.install=function(Vue){
