@@ -14,6 +14,7 @@ import JobDialog from "./components/JobDialog"
 import JobCarousel from "./components/JobCarousel"
 import wJCarousel from "./components/wjCarousel"
 import wjMbCarousel from "./components/wjMbCarousel"
+import wjSwitch from "./components/wjSwitch"
 
 const JobUi={};
 
@@ -32,7 +33,8 @@ const componentPool=[
     JobDialog,
     JobCarousel,
     wJCarousel,
-    wjMbCarousel
+    wjMbCarousel,
+    wjSwitch
 ];
 
 JobUi.install=function(Vue){
